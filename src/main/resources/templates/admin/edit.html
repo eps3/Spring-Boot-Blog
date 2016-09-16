@@ -6,47 +6,71 @@
 #parse("/admin/header.html")
 
 <div class="am-cf admin-main">
-  #parse("/admin/sidebar.html")
+    #parse("/admin/sidebar.html")
 
-  <!-- content start -->
-  <div class="admin-content">
-    <div class="admin-content-body">
-      <div class="am-cf am-padding am-padding-bottom-0">
-        <div class="am-fl am-cf">
-          <strong class="am-text-primary am-text-lg">帮助页面</strong> /
-          <small>Help Page</small>
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body">
+            <div class="am-cf am-padding am-padding-bottom-0">
+                <div class="am-fl am-cf">
+                    <strong class="am-text-primary am-text-lg">新建文章</strong> /
+                    <small>new page</small>
+                </div>
+            </div>
+
+            <hr/>
+            <!--编辑器-->
+            <div id="test-editormd" class="" style="margin-top: 50px;">
+                <textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>
+
+                <textarea class="editormd-html-textarea" name="$id-html-code"></textarea>
+            </div>
+
+            <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl">
+            <button onclick="push_post()"  class="am-btn am-btn-default am-btn-sm am-fr">提交</button>
+
+
         </div>
-      </div>
-
-      <hr/>
-      <!--编辑器-->
-      <div id="test-editormd" style="margin-top: 50px">
-        <textarea style="display:none;" id="ts"></textarea>
-      </div>
-      </div>
     </div>
 
     <footer class="admin-content-footer">
-      <hr>
-      <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+        <hr>
+        <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
     </footer>
 
-  </div>
-  <!-- content end -->
+</div>
+<!-- content end -->
 
 </div>
 #include("/admin/footer.html")
 <script type="text/javascript">
     //    调用编辑器
     var testEditor;
-    $(function() {
+    $(function () {
         testEditor = editormd("test-editormd", {
-            width   : "1000px",
-            height  : 640,
-            syncScrolling : "single",
-            path    : "/lib/"
+            width: "90%",
+            height: 640,
+            syncScrolling: "single",
+            path: "/lib/",
+            saveHTMLToTextarea: true
         });
     });
+    function push_post() {
+        $.ajax({
+            type: 'POST',
+            url: "/post/push",
+            data: {
+                'titleString': 'Title',
+                'markDownString': testEditor.getMarkdown(),
+                'htmlString': testEditor.getTextareaSavedHTML()
+            },
+            //dataType: 'json',
+            success: function () {
+                alert('json')
+            }
+        });
+    }
+
 </script>
 <script src="//cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script>
 <script src="/js/editormd.min.js"></script>

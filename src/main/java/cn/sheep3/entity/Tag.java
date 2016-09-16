@@ -1,5 +1,6 @@
 package cn.sheep3.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,5 +23,13 @@ public class Tag extends BaseEntity{
     private String name;
 
     @ManyToMany(mappedBy="tags")
+    @JsonIgnore
     private List<Post> posts = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

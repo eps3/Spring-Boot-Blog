@@ -9,8 +9,8 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="alternate icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="alternate icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
     <!-- 主页面待用的  -->
     <link href="$!{one}" rel="stylesheet"/>
     <link href="$!{two}" rel="stylesheet"/>
@@ -19,7 +19,7 @@
 <body>
 <header class="am-topbar">
     <h1 class="am-topbar-brand">
-        <a href="#">blog</a>
+        <a href="/">blog</a>
     </h1>
 
     <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
@@ -28,17 +28,15 @@
 
     <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
         <ul class="am-nav am-nav-pills am-topbar-nav">
-            <li class="am-active"><a href="#">首页</a></li>
+            <li class="am-active"><a href="/">首页</a></li>
             <li><a href="#">项目</a></li>
             <li class="am-dropdown" data-am-dropdown>
                 <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
                     菜单 <span class="am-icon-caret-down"></span>
                 </a>
                 <ul class="am-dropdown-content">
-                    <li class="am-dropdown-header">标题</li>
-                    <li><a href="#">关于我们</a></li>
-                    <li><a href="#">关于字体</a></li>
-                    <li><a href="#">TIPS</a></li>
+                    <li class="am-dropdown-header">管理</li>
+                    <li><a href="/admin">登录</a></li>
                 </ul>
             </li>
         </ul>

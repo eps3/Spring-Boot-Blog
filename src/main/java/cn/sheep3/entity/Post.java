@@ -3,6 +3,7 @@ package cn.sheep3.entity;
 import cn.sheep3.entity.util.PostLock;
 import cn.sheep3.entity.util.PostStatus;
 import cn.sheep3.entity.util.PostType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,12 +24,13 @@ public class Post extends BaseEntity{
      */
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     @JoinColumn(name="c_user_id")//外键字段名
+    @JsonIgnore
     private User user;
 
     /**
      * 文章的tag列表
      */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "t_posts_tags",
             joinColumns = {@JoinColumn(name = "c_post_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "c_tag_id", nullable = false, updatable = false)}
@@ -45,18 +47,21 @@ public class Post extends BaseEntity{
      * 文章内容
      */
     @Column(name = "c_post_content")
+    @Lob
     private String postContent;
 
     /**
      * 文章实际显示内容
      */
     @Column(name = "c_post_show")
+    @Lob
     private String postShow;
 
     /**
      * 文章摘要
      */
     @Column(name = "c_post_excerpt")
+    @Lob
     private String postExcerpt;
 
     /**
@@ -72,7 +77,7 @@ public class Post extends BaseEntity{
      */
     @Column(name = "c_post_type")
     @Enumerated(EnumType.STRING)
-    private PostType postType;
+    private PostType postType = PostType.POST;
 
     /**
      * 文章状态
@@ -81,7 +86,7 @@ public class Post extends BaseEntity{
      */
     @Column(name = "c_post_status")
     @Enumerated(EnumType.STRING)
-    private PostStatus postStatus;
+    private PostStatus postStatus = PostStatus.PUBLISHED;
 
     /**
      * 文章锁
@@ -90,8 +95,20 @@ public class Post extends BaseEntity{
      */
     @Column(name = "c_post_lock")
     @Enumerated
-    private PostLock postLock;
+    private PostLock postLock = PostLock.UN_LOCK;
 
-
-
+    @Override
+    public String toString() {
+        return "Post{" +
+                "tags=" + tags +
+                ", postTitle='" + postTitle + '\'' +
+                ", postContent='" + postContent + '\'' +
+                ", postShow='" + postShow + '\'' +
+                ", postExcerpt='" + postExcerpt + '\'' +
+                ", postPassword='" + postPassword + '\'' +
+                ", postType=" + postType +
+                ", postStatus=" + postStatus +
+                ", postLock=" + postLock +
+                '}';
+    }
 }

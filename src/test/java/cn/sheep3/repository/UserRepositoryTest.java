@@ -22,9 +22,10 @@ public class UserRepositoryTest {
     public void testSave(){
         User user = new User();
         user.setUserPass("8008208820");
-        user.setUserLogin("xuxin");
-        //userRepository.save(user);
-        User xuxin = userRepository.findByUserLogin("xuxin");
+        user.setUserLogin("admin");
+        user.setUserSalt("salt");
+        userRepository.save(user);
+        User xuxin = userRepository.findByUserLogin("admin");
         System.out.println(xuxin);
     }
 
