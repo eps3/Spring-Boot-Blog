@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -39,11 +42,11 @@ public class BaseEntity implements Persistable<Long> {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    /*@Getter
+    @Getter
     @Setter
     @Version
     @Column(name = "c_version")
-    private Long version;*/
+    private Long version;
 
     @Override
     public boolean isNew() {

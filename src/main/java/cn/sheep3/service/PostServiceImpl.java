@@ -26,6 +26,16 @@ public class PostServiceImpl implements PostService {
     private UserService userSrv;
 
     @Override
+    public Post savePost(String title, String markdown, String html) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Post editPost(String title, String markdown, String html) throws Exception {
+        return null;
+    }
+
+    @Override
     public Post pushPost(String title, String markdown, String html) throws Exception {
         if (StringUtils.isBlank(title)){
             throw new PostInputException("标题不能为空!");

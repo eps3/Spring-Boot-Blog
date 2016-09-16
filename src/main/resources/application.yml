@@ -32,6 +32,7 @@ spring:
 ###################################################
   velocity:
     suffix: .html
+    view-names: /index,/page,/footer,/header,/page,/sidebar,/admin/edit,/admin/footer,/admin/header,/admin/index,/admin/login,/admin/sidebar
     
 server:
   port: 8080

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * Created by sheep3 on 16-9-15.
  */
@@ -29,18 +31,33 @@ public class PostController {
             Model model,
             @RequestParam("titleString") String titleString,
             @RequestParam("markDownString") String markDownString,
-            @RequestParam("htmlString") String htmlString
+            @RequestParam("htmlString") String htmlString,
+            @RequestParam("tags") List<String> tags
     ){
 
-        try {
-            Post post = postSrv.pushPost(titleString, markDownString, htmlString);
-        } catch (PostInputException e){
-            model.addAttribute("msg",e.getMessage());
-        } catch (UserException e){
-            model.addAttribute("msg",e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return "/admin/edit";
+    }
+    @RequestMapping(path = "/save",method = {RequestMethod.POST})
+    public String savePost(
+            Model model,
+            @RequestParam("titleString") String titleString,
+            @RequestParam("markDownString") String markDownString,
+            @RequestParam("htmlString") String htmlString,
+            @RequestParam("tags") List<String> tags
+    ){
+
+        return "/admin/edit";
+    }
+    @RequestMapping(path = "/update",method = {RequestMethod.POST})
+    public String updatePost(
+            Model model,
+            @RequestParam("postId") int postId,
+            @RequestParam("titleString") String titleString,
+            @RequestParam("markDownString") String markDownString,
+            @RequestParam("htmlString") String htmlString,
+            @RequestParam("tags") List<String> tags
+    ){
+        
         return "/admin/edit";
     }
 

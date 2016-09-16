@@ -6,7 +6,6 @@
 #parse("/admin/header.html")
 
 <div class="am-cf admin-main">
-    #parse("/admin/sidebar.html")
 
     <!-- content start -->
     <div class="admin-content">
@@ -17,26 +16,48 @@
                     <small>new page</small>
                 </div>
             </div>
-
             <hr/>
-            <!--编辑器-->
-            <div id="test-editormd" class="" style="margin-top: 50px;">
-                <textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>
+            <div class="am-g" style="width: 90%">
+                <div class="am-text-primary am-text-lg am-u-md-1">标题:</div>
+                <div class="am-u-md-8">
+                    <input type="text" id="post_title" class="am-form-field">
+                </div>
+                <div class="am-u-md-1">
+                    <button onclick="push_post(true)"  class="am-btn am-btn-success">保存</button>
+                </div>
+                <div class="am-u-md-2">
+                    <button onclick="push_post(false)"  class="am-btn am-btn-primary">提交</button>
+                </div>
+            </div>
+            <div class="am-g" style="width: 90%;margin-top: 20px">
+                <div class="am-u-md-2">
+                    <div class="am-input-group am-input-group-sm">
+                        <input type="text" id="tag_text" class="am-form-field">
+                        <span class="am-input-group-btn">
+                            <button class="am-btn am-btn-default" onclick="add_tag()" type="button">添加标签</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="am-u-md-10">
+                    <div id="tag_group" class="am-btn-group am-btn-group-xs">
+                    </div>
+                </div>
+            </div>
+            <div class="am-g">
+                <!--编辑器-->
+                <div id="test-editormd" class="" style="margin-top: 50px;">
+                    <textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>
 
-                <textarea class="editormd-html-textarea" name="$id-html-code"></textarea>
+                    <textarea class="editormd-html-textarea" name="$id-html-code"></textarea>
+                </div>
             </div>
 
-            <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl">
-            <button onclick="push_post()"  class="am-btn am-btn-default am-btn-sm am-fr">提交</button>
-
-
         </div>
+        <footer class="admin-content-footer">
+            <hr>
+            <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+        </footer>
     </div>
-
-    <footer class="admin-content-footer">
-        <hr>
-        <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
-    </footer>
 
 </div>
 <!-- content end -->
@@ -49,18 +70,48 @@
     $(function () {
         testEditor = editormd("test-editormd", {
             width: "90%",
-            height: 640,
+            height: 740,
             syncScrolling: "single",
             path: "/lib/",
             saveHTMLToTextarea: true
         });
     });
-    function push_post() {
+
+    //文章标题
+    var postTitle = $("#post_title");
+    //文章Id
+    var postId = $("#post_id");
+    //tag 框
+    var tagText = $("#tag_text");
+    //tag 组
+    var tagGroup = $("#tag_group");
+
+    function push_post(isSave) {
+        var Title = "";
+        if (postTitle.val()){
+            Title = postTitle.val();
+        } else {
+            alert("标题不可为空!")
+            return;
+        }
+        //判断隐藏的文章id
+        var postId = -1;
+        /*if (postId.val()){
+            postId = postId.val();
+        }*/
+
+        var tags = new Array();
+        tagGroup.children().each(function () {
+            tags.push($(this).text());
+        })
         $.ajax({
             type: 'POST',
             url: "/post/push",
             data: {
-                'titleString': 'Title',
+                'tags': tags.toString(),
+                'postId': postId,
+                'isSave': isSave,
+                'titleString': Title,
                 'markDownString': testEditor.getMarkdown(),
                 'htmlString': testEditor.getTextareaSavedHTML()
             },
@@ -70,7 +121,13 @@
             }
         });
     }
+    function add_tag() {
+        if(tagText.val()){
+            tagGroup.append("<button type=\"button\" class=\"am-btn am-btn-default\">"+tagText.val()+"</button>");
+            tagText.val("");
+        }
 
+    }
 </script>
 <script src="//cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script>
 <script src="/js/editormd.min.js"></script>

@@ -26,12 +26,12 @@ public class PostServiceTest {
         for (int i =0 ; i < 50 ; i++){
             String title = "Title"+i;
 
-            String html = "<h1 id=\"h1-love-u\"><a name=\"Love U\" class=\"reference-link\"></a><span class=\"header-link octicon octicon-link\"></span>Love U</h1><blockquote>\n" +
-                    "<p>我是徐鑫，我只想好好的</p>\n" + i+
+            String html = "<h1 id=\"h1-love-u\"><a name=\"Love U\" class=\"reference-link\"></a><span class=\"header-link octicon octicon-link\"></span>Big Diao</h1><blockquote>\n" +
+                    "<p>我是羊三，食我大diao啦！</p>\n" + i+
                     "</blockquote>\n";
-            String markdown = "# Love U\n" +
+            String markdown = "# Big diao\n" +
                     "\n" +
-                    "> 我是徐鑫，我只想好好的" + i;
+                    "> 我是羊三，食我大diao啦！" + i;
             postSrv.pushPost(title,markdown,html);
 
         }

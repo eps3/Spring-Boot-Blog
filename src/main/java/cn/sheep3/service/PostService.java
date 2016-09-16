@@ -10,6 +10,11 @@ import org.springframework.data.domain.Page;
 public interface PostService {
     Post pushPost(String title,String markdown,String html) throws Exception;
 
+    Post savePost(String title,String markdown,String html) throws Exception;
+
+    Post editPost(String title,String markdown,String html) throws Exception;
+
+
     Post findByPostTitle(String postTitle) throws PostInputException;
 
     Page<Post> findPostByIndexAndSize(int page, int size);

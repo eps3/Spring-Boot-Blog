@@ -51,7 +51,7 @@ public class LogAspect {
         Object[] args = joinPoint.getArgs();
         if (args.length > 0)
             for (Object arg : args)
-                msg.append(arg);
+                msg.append(arg+",");
         log.info("before---" + msg);
     }
 
