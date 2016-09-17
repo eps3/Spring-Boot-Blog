@@ -1,0 +1,21 @@
+#set($title = "羊三的blog站")
+
+## header中的css占位
+#set($one = "/css/index.css")
+
+<!-- 头部导航    -->
+#parse("/header.html")
+
+
+<div class="am-g am-g-fixed blog-g-fixed">
+    <div class="am-u-md-8">
+        <h1>文章归档</h1>
+        <ul class="am-list">
+            #foreach($post in $posts)
+            <li><a href="/post/$post.postTitle">$post.postTitle</a></li>
+            #end
+        </ul>
+    </div>
+    #parse("/sidebar.html")
+</div>
+#include("/footer.html")

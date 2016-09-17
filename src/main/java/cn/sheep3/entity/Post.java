@@ -6,6 +6,7 @@ import cn.sheep3.model.status.PostType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,6 +36,7 @@ public class Post extends BaseEntity{
             joinColumns = {@JoinColumn(name = "c_post_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "c_tag_id", nullable = false, updatable = false)}
     )
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Tag> tags;
 
     /**
@@ -110,5 +112,9 @@ public class Post extends BaseEntity{
                 ", postStatus=" + postStatus +
                 ", postLock=" + postLock +
                 '}';
+    }
+
+    public boolean isPUBLISHED(){
+        return postStatus == PostStatus.PUBLISHED;
     }
 }

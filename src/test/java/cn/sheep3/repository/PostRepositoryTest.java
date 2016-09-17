@@ -23,4 +23,10 @@ public class PostRepositoryTest {
     public void testFindByPostTitle(){
         System.out.println(postRepo.findByPostTitle("Title"));
     }
+
+    @Test
+    public void testDelete(){
+        postRepo.delete(postRepo.findOne(1L));
+        System.out.println(postRepo.findOne(1L));
+    }
 }

@@ -19,6 +19,15 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = BlogApplication.class)
 public class PostServiceImplTest {
+    @Test
+    public void getHotPost() throws Exception {
+
+    }
+
+    @Test
+    public void removePage() throws Exception {
+        postSrv.removePage(3L);
+    }
 
     @Autowired
     private PostService postSrv;

@@ -21,9 +21,9 @@ import java.util.List;
 @NoArgsConstructor
 public class User extends BaseEntity{
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    /*@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Post> posts = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();*/
 
     /**
      * user login name

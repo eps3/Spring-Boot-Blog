@@ -11,7 +11,9 @@
     <!--文章标题-->
     <h1 class="am-article-title">$!post.postTitle</h1>
     <!--文章作者-->
-    <p class="am-article-meta">$!post.user.userLogin</p>
+    <p class="am-article-meta">
+      by <a href="">$!post.user.userLogin</a> posted on $!post.createdDate.toString("yyyy/MM/dd HH:mm:ss EE") under <a href="#">上海</a>
+    </p>
   </div>
 </div>
 <hr class="am-article-divider"/>

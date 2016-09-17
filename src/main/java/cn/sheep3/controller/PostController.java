@@ -29,21 +29,24 @@ public class PostController {
      * 发布新的文章
      */
     @RequestMapping(path = "/push",method = {RequestMethod.POST})
-    public String pushPost(
+    @ResponseBody
+    public Message pushPost(
             Model model,
             @RequestParam("titleString") String titleString,
             @RequestParam("markDownString") String markDownString,
             @RequestParam("htmlString") String htmlString,
             @RequestParam("tags") List<String> tags
     ){
+        Message msg = new Message();
         try {
             Post post = postSrv.pushPost(titleString, markDownString, htmlString, tags, PostStatus.PUBLISHED);
+            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title",post.getPostTitle());
         } catch (PostInputException e){
-            model.addAttribute("msg",e.getMessage());
+            msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg(e.getMessage());
         } catch (Exception e) {
-            model.addAttribute("msg","系统错误!");
+            msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg("系统错误!");
         }
-        return "/index";
+        return msg;
     }
 
     /**
@@ -61,7 +64,7 @@ public class PostController {
         Message msg = new Message();
         try {
             Post post = postSrv.pushPost(titleString, markDownString, htmlString, tags, PostStatus.DRAFT);
-            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("postId",post.getId());
+            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title",post.getPostTitle());
         } catch (PostInputException e){
             msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg(e.getMessage());
         } catch (Exception e) {
@@ -86,7 +89,7 @@ public class PostController {
         Message msg = new Message();
         try {
             Post post = postSrv.editPost(postId,titleString, markDownString, htmlString, tags);
-            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("postId",post.getId());
+            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title",post.getPostTitle());
         } catch (PostInputException e){
             msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg(e.getMessage());
         } catch (Exception e) {
@@ -104,5 +107,11 @@ public class PostController {
             e.printStackTrace();
         }
         return "/page";
+    }
+
+    @RequestMapping(path = "/remove/{postId}",method = {RequestMethod.GET})
+    public String removePost(Model model, @PathVariable("postId") Long postId){
+        postSrv.removePage(postId);
+        return "redirect:/admin";
     }
 }

@@ -18,15 +18,24 @@ public class HomeController {
     private PostService postSrv;
 
     @RequestMapping(path = {"/","/index"},method = {RequestMethod.GET})
-    public String index(){
+    public String index(Model model){
         return "/page/0";
+    }
+
+    @RequestMapping(path = {"/list"},method = {RequestMethod.GET})
+    public String list(Model model){
+        model.addAttribute("posts",postSrv.findAll());
+        model.addAttribute("isList",true);
+        return "/list";
     }
 
     @RequestMapping(path = {"/page/{index}"},method = {RequestMethod.GET})
     public String page(
             Model model,
             @PathVariable("index") int index){
-
+        if (index == 0){
+            model.addAttribute("isIndex",true);
+        }
         model.addAttribute("hotPage", postSrv.getHotPost());
         model.addAttribute("page", postSrv.findPostByIndexAndSize(index,2));
         return "/index";

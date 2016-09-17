@@ -18,9 +18,6 @@
                 <div class="am-u-sm-12 am-u-md-6">
                     <div class="am-btn-toolbar">
                         <div class="am-btn-group am-btn-group-xs">
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核</button>
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
                         </div>
                     </div>
@@ -58,41 +55,50 @@
                             </tr>
                             </thead>
                             <tbody>
+                            #foreach($post in $page.content)
                             <tr>
                                 <td><input type="checkbox" /></td>
-                                <td>1</td>
-                                <td><a href="#">Business management</a></td>
-                                <td>default</td>
-                                <td class="am-hide-sm-only">测试1号</td>
-                                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
+                                <td>$post.id</td>
+                                <td><a href="/post/$post.postTitle">$post.postTitle</a></td>
+                                <td>$post.postType</td>
+                                <td class="am-hide-sm-only">$post.user.userLogin</td>
+                                <td class="am-hide-sm-only">$!post.createdDate.toString("yyyy/MM/dd HH:mm:ss")</td>
                                 <td>
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                            <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><a  href="/admin/edit/$!post.postTitle"><span class="am-icon-pencil-square-o"></span> 编辑</a></button>
+                                            <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><a  href="/post/remove/$!post.Id" class="am-text-danger"><span class="am-icon-trash-o"></span> 删除</a></button>
+                                            #if(!$post.isPUBLISHED())
+                                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-plus-square-o"></span> 发布</button>
+                                            #end
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            #end
                             </tbody>
                         </table>
                         <div class="am-cf">
-                            共 15 条记录
+                            共 $!page.totalElements 条记录
                             <div class="am-fr">
                                 <ul class="am-pagination">
+                                    #if($page.first)
                                     <li class="am-disabled"><a href="#">«</a></li>
-                                    <li class="am-active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">»</a></li>
+                                    #else
+                                    #set($index=$page.number - 1)
+                                    <li><a href="/admin/list/$index">«</a></li>
+                                    #end
+                                    #if($page.last)
+                                    <li class="am-disabled"><a href="#">»</a></li>
+                                    #else
+                                    #set($index=$page.number + 1)
+                                    <li><a href="/admin/list/$index">»</a></li>
+                                    #end
                                 </ul>
                             </div>
                         </div>
                         <hr />
-                        <p>注：.....</p>
+                        <p>talk is cheap , show me the code :D</p>
                     </form>
                 </div>
         </div>
@@ -113,13 +119,13 @@
 <!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<script src="/assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->
-<script src="assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
 <!--<![endif]-->
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="/assets/js/amazeui.min.js"></script>
+<script src="/assets/js/app.js"></script>
 </body>
 </html>

@@ -46,6 +46,13 @@ dependencies {
     compile('com.enigmabridge:hibernate4-sqlite-dialect:0.1.2')
     compile('mysql:mysql-connector-java')
 
+    //Cache
+    compile('net.sf.ehcache:ehcache')
+
+    //Shiro
+    compile 'org.apache.shiro:shiro-spring:1.2.3'
+    compile 'org.apache.shiro:shiro-ehcache:1.2.3'
+
     //Lombok
     compile 'org.projectlombok:lombok:1.16.10'
 
@@ -68,4 +75,8 @@ task buildDocker(type: Docker, dependsOn: build) {
             into stageDir
         }
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
 }

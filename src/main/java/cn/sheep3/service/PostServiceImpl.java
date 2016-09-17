@@ -101,4 +101,18 @@ public class PostServiceImpl implements PostService {
         Pageable pageable = new PageRequest(0, 10,sort);
         return postRepo.findAll(pageable);
     }
+
+    @Override
+    public void removePage(Long postId) {
+        if (postRepo.findOne(postId) == null){
+            log.info("不存在的文章!");
+            return;
+        }
+        postRepo.delete(postId);
+    }
+
+    @Override
+    public List<Post> findAll() {
+        return postRepo.findAll();
+    }
 }

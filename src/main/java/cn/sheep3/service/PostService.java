@@ -20,4 +20,8 @@ public interface PostService {
     Page<Post> findPostByIndexAndSize(int page, int size);
 
     Page<Post> getHotPost();
+
+    void removePage(Long postId);
+
+    List<Post> findAll();
 }
