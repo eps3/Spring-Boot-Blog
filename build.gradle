@@ -40,6 +40,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-velocity')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-starter-security')
 
     //Sql
     compile('org.xerial:sqlite-jdbc:3.8.11.2')
@@ -48,10 +49,6 @@ dependencies {
 
     //Cache
     compile('net.sf.ehcache:ehcache')
-
-    //Shiro
-    compile 'org.apache.shiro:shiro-spring:1.2.3'
-    compile 'org.apache.shiro:shiro-ehcache:1.2.3'
 
     //Lombok
     compile 'org.projectlombok:lombok:1.16.10'

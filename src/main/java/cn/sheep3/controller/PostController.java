@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Slf4j
 @Controller
-@RequestMapping("/post")
+@RequestMapping("/admin/post")
 public class PostController {
 
     @Autowired
@@ -98,20 +98,12 @@ public class PostController {
         return msg;
     }
 
-    @RequestMapping(path = "/{title}",method = {RequestMethod.GET})
-    public String getPost(Model model, @PathVariable("title") String title){
-        try {
-            Post post = postSrv.findByPostTitle(title);
-            model.addAttribute("post",post);
-        } catch (PostInputException e) {
-            e.printStackTrace();
-        }
-        return "/page";
-    }
-
     @RequestMapping(path = "/remove/{postId}",method = {RequestMethod.GET})
     public String removePost(Model model, @PathVariable("postId") Long postId){
         postSrv.removePage(postId);
         return "redirect:/admin";
     }
+
+
+
 }

@@ -110,7 +110,7 @@
         })
         $.ajax({
             type: 'POST',
-            url: "/post/push",
+            url: "/admin/post/push",
             async: false,
             data: {
                 'tags': tags.toString(),
@@ -143,7 +143,7 @@
         })
         $.ajax({
             type: 'POST',
-            url: "/post/save",
+            url: "/admin/post/save",
             data: {
                 'tags': tags.toString(),
                 'titleString': Title,
@@ -178,7 +178,7 @@
         })
         $.ajax({
             type: 'POST',
-            url: "/post/update",
+            url: "/admin/post/update",
             data: {
                 'postId': id,
                 'tags': tags.toString(),

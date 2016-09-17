@@ -87,4 +87,8 @@ public class User extends BaseEntity{
                 ", userStatus=" + userStatus +
                 '}';
     }
+
+    public String getCredentialsSalt(){
+        return this.userLogin+this.userSalt;
+    }
 }

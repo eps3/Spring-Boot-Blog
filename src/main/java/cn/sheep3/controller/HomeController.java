@@ -1,5 +1,7 @@
 package cn.sheep3.controller;
 
+import cn.sheep3.entity.Post;
+import cn.sheep3.exception.PostInputException;
 import cn.sheep3.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +44,22 @@ public class HomeController {
 
     }
 
+    @RequestMapping(path = "/post/{title}",method = {RequestMethod.GET})
+    public String getPost(Model model, @PathVariable("title") String title){
+        try {
+            Post post = postSrv.findByPostTitle(title);
+            model.addAttribute("post",post);
+        } catch (PostInputException e) {
+            e.printStackTrace();
+        }
+        return "/page";
+    }
+
+
+    @RequestMapping("/403")
+    public String forbidden(){
+        return "/error/403";
+    }
 
 
 }
