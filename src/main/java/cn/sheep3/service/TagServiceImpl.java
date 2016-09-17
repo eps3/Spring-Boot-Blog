@@ -5,10 +5,14 @@ import cn.sheep3.repository.TagRepository;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static cn.sheep3.config.Constant.TAG_CACHE_NAME;
 
 /**
  * Created by sheep3 on 16-9-16.
@@ -31,7 +35,7 @@ public class TagServiceImpl implements TagService {
             Tag tag = findByName(name);
             if (tag == null){
                 tag = new Tag(name);
-                tagRepo.save(tag);
+                save(tag);
             }
 
             tagList.add(tag);
@@ -40,13 +44,12 @@ public class TagServiceImpl implements TagService {
         return tagList;
     }
 
-
-
     @Override
     public List<Tag> findAll() {
         return tagRepo.findAll();
     }
 
+    @Cacheable(value = TAG_CACHE_NAME,key = "'tag_cache_key_'+#name")
     @Override
     public Tag findByName(String name) {
         if (StringUtils.isBlank(name)){
@@ -54,5 +57,10 @@ public class TagServiceImpl implements TagService {
         }
 
         return tagRepo.findByName(name);
+    }
+
+    @CachePut(value = TAG_CACHE_NAME,key = "'tag_cache_key_'+#tag.name")
+    public void save(Tag tag){
+        tagRepo.save(tag);
     }
 }

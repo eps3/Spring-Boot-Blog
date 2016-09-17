@@ -36,12 +36,14 @@ public class User extends BaseEntity{
      * this password= md5 (real_password + salt)
      */
     @Column(name = "c_user_pass", nullable = false)
+    @JsonIgnore
     private String userPass;
 
     /**
      * user password salt
      */
     @Column(name = "c_user_salt", nullable = false)
+    @JsonIgnore
     private String userSalt;
 
     /**
@@ -88,7 +90,4 @@ public class User extends BaseEntity{
                 '}';
     }
 
-    public String getCredentialsSalt(){
-        return this.userLogin+this.userSalt;
-    }
 }

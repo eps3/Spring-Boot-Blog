@@ -1,28 +1,34 @@
 package cn.sheep3.controller;
 
 import cn.sheep3.entity.Post;
+import cn.sheep3.entity.User;
 import cn.sheep3.exception.PostInputException;
+import cn.sheep3.exception.UserException;
 import cn.sheep3.service.PostService;
+import cn.sheep3.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by sheep3 on 16-9-14.
  */
+@Slf4j
 @Controller
 public class UserController {
 
     @Autowired
     private PostService postSrv;
+
+    @Autowired
+    private UserService userSrv;
 
     @RequestMapping("/admin")
     public String index() {
@@ -75,5 +81,31 @@ public class UserController {
             model.addAttribute("_csrf",csrfToken);
         }*/
         return "/admin/login";
+    }
+
+    //TODO:需要去除GET方法
+    @RequestMapping(path = "/admin/pass" ,method = {RequestMethod.GET,RequestMethod.POST})
+    public String updateUserPass(@RequestParam() String password){
+        try {
+            User user = userSrv.updateUserPass(password, userSrv.getUser().getUserLogin());
+            if (user == null){
+                log.error("奇怪的用户密码修改!");
+            }
+        } catch (UserException e) {
+            log.error(e.getMessage());
+        }
+        return "redirect:/logout";
+    }
+
+    @RequestMapping(path = "/admin/me" ,method = {RequestMethod.GET})
+    @ResponseBody
+    public User getUser(){
+        User user= null;
+        try {
+            user = userSrv.getUser();
+        } catch (UserException e) {
+            log.error(e.getMessage());
+        }
+        return user;
     }
 }

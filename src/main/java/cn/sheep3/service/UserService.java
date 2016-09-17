@@ -8,4 +8,7 @@ import cn.sheep3.exception.UserException;
  */
 public interface UserService {
     User findByUserLogin(String userLogin) throws UserException;
+    User addUser(String userLogin,String userPass) throws UserException;
+    User updateUserPass(String userPass, String userLogin) throws UserException;
+    User getUser() throws UserException;
 }

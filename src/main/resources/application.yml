@@ -33,6 +33,11 @@ spring:
   velocity:
     suffix: .html
     view-names: /index,/page,/footer,/header,/page,/sidebar,/list,/admin/edit,/admin/footer,/admin/header,/admin/list,/admin/login,/admin/sidebar,/error/403
-    
+#  resources:
+#    chain:
+#      strategy:
+#        content:
+#          enabled: true
+#          paths: /**
 server:
   port: 8080

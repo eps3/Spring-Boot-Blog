@@ -47,7 +47,7 @@ java.io.tmpdir – 默认临时文件路径
             timeToLiveSeconds="600"
             memoryStoreEvictionPolicy="LRU" />
     <cache
-            name="tag_cache"
+            name="page_cache_name"
             eternal="false"
             maxElementsInMemory="100"
             overflowToDisk="false"
@@ -56,7 +56,7 @@ java.io.tmpdir – 默认临时文件路径
             timeToLiveSeconds="300"
             memoryStoreEvictionPolicy="LRU" />
     <cache
-            name="tag_list_cache"
+            name="post_cache_name"
             eternal="false"
             maxElementsInMemory="100"
             overflowToDisk="false"
@@ -65,7 +65,7 @@ java.io.tmpdir – 默认临时文件路径
             timeToLiveSeconds="300"
             memoryStoreEvictionPolicy="LRU" />
     <cache
-            name="risk_cache"
+            name="user_cache_name"
             eternal="false"
             maxElementsInMemory="100"
             overflowToDisk="false"
@@ -74,16 +74,7 @@ java.io.tmpdir – 默认临时文件路径
             timeToLiveSeconds="300"
             memoryStoreEvictionPolicy="LRU" />
     <cache
-            name="risk_list_cache"
-            eternal="false"
-            maxElementsInMemory="100"
-            overflowToDisk="false"
-            diskPersistent="false"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="300"
-            memoryStoreEvictionPolicy="LRU" />
-    <cache
-            name="role_cache"
+            name="tag_cache_name"
             eternal="false"
             maxElementsInMemory="100"
             overflowToDisk="false"

@@ -7,6 +7,10 @@ import cn.sheep3.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +18,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static cn.sheep3.config.Constant.PAGE_CACHE_NAME;
+import static cn.sheep3.config.Constant.POST_CACHE_NAME;
 
 /**
  * Created by sheep3 on 16-9-16.
@@ -32,6 +39,8 @@ public class PostServiceImpl implements PostService {
     private TagService tagSrv;
 
 
+    @CachePut(value = POST_CACHE_NAME,key = "'post_cache_key_'+#title")
+    @CacheEvict(value = PAGE_CACHE_NAME, allEntries = true)
     @Override
     public Post editPost(Long id, String title, String markdown, String html, List<String> tagStringList) throws Exception {
         if ( id <0){
@@ -54,6 +63,8 @@ public class PostServiceImpl implements PostService {
         return postRepo.save(post);
     }
 
+    @CachePut(value = POST_CACHE_NAME,key = "'post_cache_key_'+#title")
+    @CacheEvict(value = PAGE_CACHE_NAME, allEntries = true)
     @Override
     public Post pushPost(String title, String markdown, String html, List<String> tagStringList,PostStatus postStatus) throws Exception {
         if (StringUtils.isBlank(title)){
@@ -73,6 +84,7 @@ public class PostServiceImpl implements PostService {
         return postRepo.save(post);
     }
 
+    @Cacheable(value = POST_CACHE_NAME,key = "'post_cache_key_'+#postTitle")
     @Override
     public Post findByPostTitle(String postTitle) throws PostInputException {
         if (StringUtils.isBlank(postTitle)){
@@ -82,6 +94,7 @@ public class PostServiceImpl implements PostService {
         return postRepo.findByPostTitle(postTitle);
     }
 
+    @Cacheable(value = PAGE_CACHE_NAME,key = "'page_cache_key_'+#page+'_'+#size")
     @Override
     public Page<Post> findPostByIndexAndSize(int page, int size) {
         if (size < 1 || page < 0 ){
@@ -95,6 +108,7 @@ public class PostServiceImpl implements PostService {
         return postRepo.findAll(pageable);
     }
 
+    @Cacheable(value = PAGE_CACHE_NAME,key = "'hot_page_cache_key_'")
     @Override
     public Page<Post> getHotPost() {
         Sort sort = new Sort(Sort.Direction.DESC,"lastModifiedDate");
@@ -111,6 +125,7 @@ public class PostServiceImpl implements PostService {
         postRepo.delete(postId);
     }
 
+    @Cacheable(value = PAGE_CACHE_NAME,key = "'all_page_cache_key_'")
     @Override
     public List<Post> findAll() {
         return postRepo.findAll();
