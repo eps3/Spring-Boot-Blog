@@ -3,6 +3,7 @@ package cn.sheep3.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,9 +14,16 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @Entity
 @Table(name = "t_tags")
 public class Tag extends BaseEntity{
+
+    public Tag(String name){
+        this.name = name;
+    }
+
+
     /**
      * tag name
      */

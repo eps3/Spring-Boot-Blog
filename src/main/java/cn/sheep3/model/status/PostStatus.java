@@ -1,4 +1,4 @@
-package cn.sheep3.entity.util;
+package cn.sheep3.model.status;
 
 /**
  * Created by sheep3 on 16-9-15.

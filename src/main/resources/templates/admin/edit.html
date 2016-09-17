@@ -23,11 +23,12 @@
                     <input type="text" id="post_title" class="am-form-field">
                 </div>
                 <div class="am-u-md-1">
-                    <button onclick="push_post(true)"  class="am-btn am-btn-success">保存</button>
+                    <button onclick="push_post()"  class="am-btn am-btn-success">保存</button>
                 </div>
                 <div class="am-u-md-2">
-                    <button onclick="push_post(false)"  class="am-btn am-btn-primary">提交</button>
+                    <button onclick="save_post()"  class="am-btn am-btn-primary">提交</button>
                 </div>
+                <input type="hidden" id="post_id" value="-1">
             </div>
             <div class="am-g" style="width: 90%;margin-top: 20px">
                 <div class="am-u-md-2">
@@ -86,7 +87,7 @@
     //tag 组
     var tagGroup = $("#tag_group");
 
-    function push_post(isSave) {
+    function push_post() {
         var Title = "";
         if (postTitle.val()){
             Title = postTitle.val();
@@ -94,12 +95,6 @@
             alert("标题不可为空!")
             return;
         }
-        //判断隐藏的文章id
-        var postId = -1;
-        /*if (postId.val()){
-            postId = postId.val();
-        }*/
-
         var tags = new Array();
         tagGroup.children().each(function () {
             tags.push($(this).text());
@@ -107,17 +102,73 @@
         $.ajax({
             type: 'POST',
             url: "/post/push",
+            async: false,
             data: {
                 'tags': tags.toString(),
-                'postId': postId,
-                'isSave': isSave,
                 'titleString': Title,
                 'markDownString': testEditor.getMarkdown(),
                 'htmlString': testEditor.getTextareaSavedHTML()
             },
             //dataType: 'json',
             success: function () {
-                alert('json')
+            }
+        });
+    }
+
+    function save_post() {
+        var Title = "";
+        if (postTitle.val()){
+            Title = postTitle.val();
+        } else {
+            alert("标题不可为空!")
+            return;
+        }
+        var tags = new Array();
+        tagGroup.children().each(function () {
+            tags.push($(this).text());
+        })
+        $.ajax({
+            type: 'POST',
+            url: "/post/save",
+            data: {
+                'tags': tags.toString(),
+                'titleString': Title,
+                'markDownString': testEditor.getMarkdown(),
+                'htmlString': testEditor.getTextareaSavedHTML()
+            },
+            //dataType: 'json',
+            success: function () {
+            }
+        });
+    }
+    function update_post() {
+        var Title = "";
+        if (postTitle.val()){
+            Title = postTitle.val();
+        } else {
+            alert("标题不可为空!")
+            return;
+        }
+        var id = -1;
+        if (postId.val()){
+            id = postId.val();
+        }
+        var tags = new Array();
+        tagGroup.children().each(function () {
+            tags.push($(this).text());
+        })
+        $.ajax({
+            type: 'POST',
+            url: "/post/update",
+            data: {
+                'postId': id,
+                'tags': tags.toString(),
+                'titleString': Title,
+                'markDownString': testEditor.getMarkdown(),
+                'htmlString': testEditor.getTextareaSavedHTML()
+            },
+            //dataType: 'json',
+            success: function () {
             }
         });
     }

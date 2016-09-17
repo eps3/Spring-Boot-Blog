@@ -1,4 +1,4 @@
-package cn.sheep3.entity.util;
+package cn.sheep3.model.status;
 
 import lombok.Getter;
 import lombok.Setter;

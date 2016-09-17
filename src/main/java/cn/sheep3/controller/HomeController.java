@@ -18,9 +18,8 @@ public class HomeController {
     private PostService postSrv;
 
     @RequestMapping(path = {"/","/index"},method = {RequestMethod.GET})
-    public String index(Model model){
-        model.addAttribute("page", postSrv.findPostByIndexAndSize(0,5));
-        return "/index";
+    public String index(){
+        return "/page/0";
     }
 
     @RequestMapping(path = {"/page/{index}"},method = {RequestMethod.GET})
@@ -28,7 +27,8 @@ public class HomeController {
             Model model,
             @PathVariable("index") int index){
 
-        model.addAttribute("page", postSrv.findPostByIndexAndSize(index,5));
+        model.addAttribute("hotPage", postSrv.getHotPost());
+        model.addAttribute("page", postSrv.findPostByIndexAndSize(index,2));
         return "/index";
 
     }

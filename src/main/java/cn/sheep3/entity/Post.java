@@ -1,8 +1,8 @@
 package cn.sheep3.entity;
 
-import cn.sheep3.entity.util.PostLock;
-import cn.sheep3.entity.util.PostStatus;
-import cn.sheep3.entity.util.PostType;
+import cn.sheep3.model.status.PostLock;
+import cn.sheep3.model.status.PostStatus;
+import cn.sheep3.model.status.PostType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +22,7 @@ public class Post extends BaseEntity{
     /**
      * 文章作者
      */
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @ManyToOne(optional=false)
     @JoinColumn(name="c_user_id")//外键字段名
     @JsonIgnore
     private User user;
@@ -30,7 +30,7 @@ public class Post extends BaseEntity{
     /**
      * 文章的tag列表
      */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.EAGER)
     @JoinTable(name = "t_posts_tags",
             joinColumns = {@JoinColumn(name = "c_post_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "c_tag_id", nullable = false, updatable = false)}
