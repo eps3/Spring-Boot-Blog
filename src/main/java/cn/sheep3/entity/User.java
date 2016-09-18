@@ -6,11 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 /**
  * Created by sheep3 on 16-9-14.
@@ -28,7 +27,7 @@ public class User extends BaseEntity{
     /**
      * user login name
      */
-    @Column(name = "c_user_login", nullable = false, unique= true)
+    @Column(name = "c_user_login", nullable = false)
     private String userLogin;
 
     /**

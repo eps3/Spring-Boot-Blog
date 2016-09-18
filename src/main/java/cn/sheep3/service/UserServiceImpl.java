@@ -6,6 +6,7 @@ import cn.sheep3.repository.UserRepository;
 import cn.sheep3.util.PassWordUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -68,19 +69,31 @@ public class UserServiceImpl implements UserService {
         return (User) auth.getPrincipal();
     }
 
-    @CachePut(value = USER_CACHE_NAME, key = "'user_cache_key'+#userLogin")
     @Override
-    public User updateUserPass(String userPass, String userLogin) throws UserException {
-        User user = findByUserLogin(userLogin);
-        if (user == null){
-            throw new UserException("不存在的用户");
-        }
-        user.setUserPass(userPass);
+    public User updateUserPass(User user) throws UserException {
         PassWordUtil.fuckUser(user);
-        User save = userRepo.save(user);
-        return save;
+        return userRepo.save(user);
     }
 
-
-
+    @CacheEvict(value = USER_CACHE_NAME, allEntries = true)
+    @Override
+    public User updateUser(String userPass,
+                           String userLogin,
+                           String userNiceName) throws UserException {
+        User user = getUser();
+        if (user == null){
+            throw new UserException("不存在的用户访问");
+        }
+        if (StringUtils.isNotBlank(userLogin)){
+            user.setUserLogin(userLogin);
+        }
+        if (StringUtils.isNotBlank(userNiceName)){
+            user.setUserNiceName(userNiceName);
+        }
+        if (StringUtils.isNotBlank(userPass)){
+            user.setUserPass(userPass);
+            return updateUserPass(user);
+        }
+        return userRepo.save(user);
+    }
 }

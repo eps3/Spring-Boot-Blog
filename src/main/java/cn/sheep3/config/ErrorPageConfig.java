@@ -23,6 +23,7 @@ public class ErrorPageConfig {
         @Override
         public void customize(ConfigurableEmbeddedServletContainer container) {
             container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, "/403"));
+            container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404"));
         }
 
     }

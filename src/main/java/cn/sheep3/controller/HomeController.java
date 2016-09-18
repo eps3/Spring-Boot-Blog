@@ -56,7 +56,7 @@ public class HomeController {
     }
 
 
-    @RequestMapping("/403")
+    @RequestMapping(path = {"/403","/404","/error"})
     public String forbidden(){
         return "/error/403";
     }

@@ -83,20 +83,6 @@ public class UserController {
         return "/admin/login";
     }
 
-    //TODO:需要去除GET方法
-    @RequestMapping(path = "/admin/pass" ,method = {RequestMethod.GET,RequestMethod.POST})
-    public String updateUserPass(@RequestParam() String password){
-        try {
-            User user = userSrv.updateUserPass(password, userSrv.getUser().getUserLogin());
-            if (user == null){
-                log.error("奇怪的用户密码修改!");
-            }
-        } catch (UserException e) {
-            log.error(e.getMessage());
-        }
-        return "redirect:/logout";
-    }
-
     @RequestMapping(path = "/admin/me" ,method = {RequestMethod.GET})
     @ResponseBody
     public User getUser(){
@@ -108,4 +94,27 @@ public class UserController {
         }
         return user;
     }
+    @RequestMapping(path = "/admin/person" ,method = {RequestMethod.GET})
+    public String setUser(Model model){
+        try {
+            model.addAttribute("user",userSrv.getUser());
+        } catch (UserException e) {
+            log.error(e.getMessage());
+        }
+        return "/admin/person-setting";
+    }
+
+    @RequestMapping(path = "/admin/person" ,method = {RequestMethod.POST})
+    public String setUser(@RequestParam("userPass") String userPass,
+                          @RequestParam("userLogin") String userLogin,
+                          @RequestParam("userNiceName")String userNiceName){
+        try {
+            User user = userSrv.updateUser(userPass, userLogin, userNiceName);
+        } catch (UserException e) {
+            log.error(e.getMessage());
+        }
+
+        return "redirect:/logout";
+    }
+
 }

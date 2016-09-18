@@ -1,0 +1,72 @@
+#set($title = "管理后台")
+
+
+<!-- 头部导航    -->
+#parse("/admin/header.html")
+<div class="am-cf am-padding am-padding-bottom-0">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">个人资料</strong> / <small>Personal information</small></div>
+</div>
+
+<hr/>
+
+<div class="am-g">
+    <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+        <div class="am-panel am-panel-default">
+            <div class="am-panel-bd">
+                <div class="am-g">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="am-panel am-panel-default">
+            <div class="am-panel-bd">
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+        <form class="am-form am-form-horizontal" action="/admin/person" method="post">
+            <div class="am-form-group">
+                <label for="user-name" class="am-u-sm-3 am-form-label">昵称 / NiceName</label>
+                <div class="am-u-sm-9">
+                    <input type="text" id="user-name" name="userNiceName" placeholder="昵称 / NiceName" value="$!user.userNiceName">
+                    <small>显示在文章上的昵称。</small>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <label for="user-login" class="am-u-sm-3 am-form-label">登陆名 / LoginName</label>
+                <div class="am-u-sm-9">
+                    <input type="text" id="user-login" name="userLogin" placeholder="登陆名 / LoginName" value="$!user.userLogin">
+                    <small>就是登陆时用的名字</small>
+                </div>
+            </div>
+            <div class="am-form-group">
+                <label for="password" class="am-u-sm-3 am-form-label">登陆密码 / Password</label>
+                <div class="am-u-sm-9">
+                    <input type="password" id="password" name="userPass" placeholder="登陆密码 / Password" >
+                    <small>就是登陆时用的名字</small>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <label for="user-intro" class="am-u-sm-3 am-form-label">简介 / Intro</label>
+                <div class="am-u-sm-9">
+                    <textarea class="" rows="5" id="user-intro" placeholder="输入个人简介"></textarea>
+                    <small>首页的简短简介</small>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <div class="am-u-sm-9 am-u-sm-push-3">
+                    <button type="submit" class="am-btn am-btn-primary">保存修改</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+

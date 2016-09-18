@@ -5,75 +5,58 @@
 <!-- 头部导航    -->
 #parse("/admin/header.html")
 
-<div class="am-cf admin-main">
-
-    <!-- content start -->
-    <div class="admin-content">
-        <div class="admin-content-body">
-            <div class="am-cf am-padding am-padding-bottom-0">
-                <div class="am-fl am-cf">
-                    <strong class="am-text-primary am-text-lg">新建文章</strong> /
-                    <small>new page</small>
-                </div>
-            </div>
-            <hr/>
-            <div class="am-g" style="width: 90%">
-                <div class="am-text-primary am-text-lg am-u-md-1">标题:</div>
-                <div class="am-u-md-8">
-                    <input type="text" id="post_title" class="am-form-field" value="$!post.postTitle">
-                </div>
-                #if($post.isPUBLISHED())
-                <div class="am-u-md-3">
-                    <button onclick="update_post()"  class="am-btn am-btn-success">修改</button>
-                </div>
-                #else
-                <div class="am-u-md-1">
-                    <button onclick="save_post()"  class="am-btn am-btn-success">保存</button>
-                </div>
-                <div class="am-u-md-2">
-                    <button onclick="push_post()"  class="am-btn am-btn-primary">提交</button>
-                </div>
-                #end
-                <input type="hidden" id="post_id" value="$!post.id">
-            </div>
-            <div class="am-g" style="width: 90%;margin-top: 20px">
-                <div class="am-u-md-2">
-                    <div class="am-input-group am-input-group-sm">
-                        <input type="text" id="tag_text" class="am-form-field">
-                        <span class="am-input-group-btn">
-                            <button class="am-btn am-btn-default" onclick="add_tag()" type="button">添加标签</button>
-                        </span>
-                    </div>
-                </div>
-                <div class="am-u-md-10">
-                    <div id="tag_group" class="am-btn-group am-btn-group-xs">
-                        #foreach($tag in $post.tags)
-                        <button type="button" onclick="remove_tag(this)" class="am-btn am-btn-default">$tag.name</button>
-                        #end
-                    </div>
-                </div>
-            </div>
-            <div class="am-g">
-                <!--编辑器-->
-                <div id="test-editormd" class="" style="margin-top: 50px;">
-                    <textarea class="editormd-markdown-textarea" name="$id-markdown-doc">$!post.postContent</textarea>
-
-                    <textarea class="editormd-html-textarea" name="$id-html-code"></textarea>
-                </div>
-            </div>
-
-        </div>
-        <footer class="admin-content-footer">
-            <hr>
-            <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
-        </footer>
+<div class="am-cf am-padding am-padding-bottom-0">
+    <div class="am-fl am-cf">
+        <strong class="am-text-primary am-text-lg">新建文章</strong> /
+        <small>new page</small>
     </div>
-
 </div>
-<!-- content end -->
-
+<hr/>
+<div class="am-g" style="width: 90%">
+    <div class="am-text-primary am-text-lg am-u-md-1">标题:</div>
+    <div class="am-u-md-8">
+        <input type="text" id="post_title" class="am-form-field" value="$!post.postTitle">
+    </div>
+    #if($post.isPUBLISHED())
+    <div class="am-u-md-3">
+        <button onclick="update_post()"  class="am-btn am-btn-success">修改</button>
+    </div>
+    #else
+    <div class="am-u-md-1">
+        <button onclick="save_post()"  class="am-btn am-btn-success">保存</button>
+    </div>
+    <div class="am-u-md-2">
+        <button onclick="push_post()"  class="am-btn am-btn-primary">提交</button>
+    </div>
+    #end
+    <input type="hidden" id="post_id" value="$!post.id">
 </div>
-#include("/admin/footer.html")
+<div class="am-g" style="width: 90%;margin-top: 20px">
+    <div class="am-u-md-2">
+        <div class="am-input-group am-input-group-sm">
+            <input type="text" id="tag_text" class="am-form-field">
+            <span class="am-input-group-btn">
+                <button class="am-btn am-btn-default" onclick="add_tag()" type="button">添加标签</button>
+            </span>
+        </div>
+    </div>
+    <div class="am-u-md-10">
+        <div id="tag_group" class="am-btn-group am-btn-group-xs">
+            #foreach($tag in $post.tags)
+            <button type="button" onclick="remove_tag(this)" class="am-btn am-btn-default">$tag.name</button>
+            #end
+        </div>
+    </div>
+</div>
+<div class="am-g">
+    <!--编辑器-->
+    <div id="test-editormd" class="" style="margin-top: 50px;">
+        <textarea class="editormd-markdown-textarea" name="$id-markdown-doc">$!post.postContent</textarea>
+
+        <textarea class="editormd-html-textarea" name="$id-html-code"></textarea>
+    </div>
+</div>
+#parse("/admin/footer.html")
 <script type="text/javascript">
     //    调用编辑器
     var testEditor;
