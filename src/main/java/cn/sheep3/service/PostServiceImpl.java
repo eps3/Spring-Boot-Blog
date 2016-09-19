@@ -127,6 +127,8 @@ public class PostServiceImpl implements PostService {
             log.info("不存在的文章!");
             return;
         }
+        post.setTags(null);
+        postRepo.save(post);
         postRepo.delete(post.getId());
     }
 

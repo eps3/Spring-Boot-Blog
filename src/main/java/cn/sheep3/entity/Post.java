@@ -31,7 +31,7 @@ public class Post extends BaseEntity{
     /**
      * 文章的tag列表
      */
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},fetch = FetchType.EAGER)
     @JoinTable(name = "t_posts_tags",
             joinColumns = {@JoinColumn(name = "c_post_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "c_tag_id", nullable = false, updatable = false)}
