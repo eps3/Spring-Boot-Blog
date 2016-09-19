@@ -102,7 +102,7 @@
                 'htmlString': testEditor.getTextareaSavedHTML()
             },
             //dataType: 'json',
-            success: function () {
+            success: function (data) {
                 if (data.codeStatus == "STATUS_OK"){
                     window.location.href ="/post/"+data.items.title;
                 } else {
@@ -134,7 +134,7 @@
                 'htmlString': testEditor.getTextareaSavedHTML()
             },
             //dataType: 'json',
-            success: function () {
+            success: function (data) {
                 if (data.codeStatus == "STATUS_OK"){
                     window.location.href ="/admin/edit/"+data.items.title;
                 } else {

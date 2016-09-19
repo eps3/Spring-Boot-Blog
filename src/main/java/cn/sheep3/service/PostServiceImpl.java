@@ -74,7 +74,7 @@ public class PostServiceImpl implements PostService {
         }
 
         Post post = new Post();
-        post.setUser(userSrv.findByUserLogin("admin"));
+        post.setUser(userSrv.getUser());
         post.setPostStatus(postStatus);
         post.setPostTitle(title);
         post.setPostContent(markdown);
