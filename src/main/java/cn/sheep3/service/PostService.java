@@ -21,7 +21,7 @@ public interface PostService {
 
     Page<Post> getHotPost();
 
-    void removePage(Long postId);
+    void removePage(String postTitle) throws PostInputException;
 
     List<Post> findAll();
 }

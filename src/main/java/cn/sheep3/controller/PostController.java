@@ -98,9 +98,13 @@ public class PostController {
         return msg;
     }
 
-    @RequestMapping(path = "/remove/{postId}",method = {RequestMethod.GET})
-    public String removePost(Model model, @PathVariable("postId") Long postId){
-        postSrv.removePage(postId);
+    @RequestMapping(path = "/remove/{postTitle}",method = {RequestMethod.GET})
+    public String removePost(Model model, @PathVariable("postTitle") String postTitle){
+        try {
+            postSrv.removePage(postTitle);
+        } catch (PostInputException e) {
+            log.error(e.getMessage());
+        }
         return "redirect:/admin";
     }
 

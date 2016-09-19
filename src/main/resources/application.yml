@@ -39,4 +39,4 @@ spring:
     check-template-location: false
 
 server:
-  port: 80
+  port: 8080
