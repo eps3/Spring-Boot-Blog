@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by sheep3 on 16-9-15.
@@ -24,13 +27,6 @@ public class HomeController {
         return "/page/0";
     }
 
-    @RequestMapping(path = {"/list"},method = {RequestMethod.GET})
-    public String list(Model model){
-        model.addAttribute("posts",postSrv.findAll());
-        model.addAttribute("isList",true);
-        return "/list";
-    }
-
     @RequestMapping(path = {"/page/{index}"},method = {RequestMethod.GET})
     public String page(
             Model model,
@@ -44,17 +40,22 @@ public class HomeController {
 
     }
 
-    @RequestMapping(path = "/post/{title}",method = {RequestMethod.GET})
-    public String getPost(Model model, @PathVariable("title") String title){
-        try {
-            Post post = postSrv.findByPostTitle(title);
-            model.addAttribute("post",post);
-        } catch (PostInputException e) {
-            e.printStackTrace();
-        }
-        return "/page";
-    }
+    @RequestMapping(path = "/login",method = {RequestMethod.GET,RequestMethod.POST})
+    public String login(
+            @RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "logout", required = false) String logout,
+            Model model,
+            HttpServletRequest request
 
+    ) {
+        if (error != null) {
+            model.addAttribute("error", "Invalid username or password!");
+        }
+        if (logout != null) {
+            model.addAttribute("msg", "You've been logged out successfully.");
+        }
+        return "/admin/login";
+    }
 
     @RequestMapping(path = {"/403","/404","/error"})
     public String forbidden(){

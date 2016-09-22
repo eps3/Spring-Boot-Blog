@@ -19,93 +19,28 @@ import java.util.List;
  */
 @Slf4j
 @Controller
-@RequestMapping("/admin/post")
+@RequestMapping("/post")
 public class PostController {
 
     @Autowired
     private PostService postSrv;
 
-    /**
-     * 发布新的文章
-     */
-    @RequestMapping(path = "/push",method = {RequestMethod.POST})
-    @ResponseBody
-    public Message pushPost(
-            Model model,
-            @RequestParam("titleString") String titleString,
-            @RequestParam("markDownString") String markDownString,
-            @RequestParam("htmlString") String htmlString,
-            @RequestParam("tags") List<String> tags
-    ){
-        Message msg = new Message();
-        try {
-            Post post = postSrv.pushPost(titleString, markDownString, htmlString, tags, PostStatus.PUBLISHED);
-            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title",post.getPostTitle());
-        } catch (PostInputException e){
-            msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg(e.getMessage());
-        } catch (Exception e) {
-            msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg("系统错误!");
-        }
-        return msg;
+    @RequestMapping(path = {"","/"},method = {RequestMethod.GET})
+    public String list(Model model){
+        model.addAttribute("posts",postSrv.findAll());
+        model.addAttribute("isList",true);
+        return "/list";
     }
 
-    /**
-     * 保存文章
-     */
-    @RequestMapping(path = "/save",method = {RequestMethod.POST})
-    @ResponseBody
-    public Message savePost(
-            Model model,
-            @RequestParam("titleString") String titleString,
-            @RequestParam("markDownString") String markDownString,
-            @RequestParam("htmlString") String htmlString,
-            @RequestParam("tags") List<String> tags
-    ){
-        Message msg = new Message();
+    @RequestMapping(path = "/{title}",method = {RequestMethod.GET})
+    public String getPost(Model model, @PathVariable("title") String title){
         try {
-            Post post = postSrv.pushPost(titleString, markDownString, htmlString, tags, PostStatus.DRAFT);
-            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title",post.getPostTitle());
-        } catch (PostInputException e){
-            msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg(e.getMessage());
-        } catch (Exception e) {
-            msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg("系统错误!");
-        }
-        return msg;
-    }
-
-    /**
-     * 修改文章
-     */
-    @RequestMapping(path = "/update",method = {RequestMethod.POST})
-    @ResponseBody
-    public Message updatePost(
-            Model model,
-            @RequestParam("postId") Long postId,
-            @RequestParam("titleString") String titleString,
-            @RequestParam("markDownString") String markDownString,
-            @RequestParam("htmlString") String htmlString,
-            @RequestParam("tags") List<String> tags
-    ){
-        Message msg = new Message();
-        try {
-            Post post = postSrv.editPost(postId,titleString, markDownString, htmlString, tags);
-            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title",post.getPostTitle());
-        } catch (PostInputException e){
-            msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg(e.getMessage());
-        } catch (Exception e) {
-            msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg("系统错误!");
-        }
-        return msg;
-    }
-
-    @RequestMapping(path = "/remove/{postTitle}",method = {RequestMethod.GET})
-    public String removePost(Model model, @PathVariable("postTitle") String postTitle){
-        try {
-            postSrv.removePage(postTitle);
+            Post post = postSrv.findByPostTitle(title);
+            model.addAttribute("post",post);
         } catch (PostInputException e) {
-            log.error(e.getMessage());
+            e.printStackTrace();
         }
-        return "redirect:/admin";
+        return "/page";
     }
 
 
