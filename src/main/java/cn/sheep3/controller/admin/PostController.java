@@ -19,7 +19,7 @@ import java.util.List;
  * Created by sheep3 on 16-9-22.
  */
 @Slf4j
-@Controller
+@Controller("admin_post_controller")
 @RequestMapping("/admin/post")
 public class PostController {
 
@@ -33,7 +33,7 @@ public class PostController {
     ) {
         Page<Post> page = postSrv.findPostByIndexAndSize(index, 10);
         model.addAttribute("page", page);
-        return "/list";
+        return "/admin/list";
     }
 
     @RequestMapping("/new")
@@ -55,7 +55,7 @@ public class PostController {
     /**
      * 发布新的文章
      */
-    @RequestMapping(path = "/push",method = {RequestMethod.POST})
+    @RequestMapping(path = "/push", method = {RequestMethod.POST})
     @ResponseBody
     public Message pushPost(
             Model model,
@@ -63,12 +63,12 @@ public class PostController {
             @RequestParam("markDownString") String markDownString,
             @RequestParam("htmlString") String htmlString,
             @RequestParam("tags") List<String> tags
-    ){
+    ) {
         Message msg = new Message();
         try {
             Post post = postSrv.pushPost(titleString, markDownString, htmlString, tags, PostStatus.PUBLISHED);
-            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title",post.getPostTitle());
-        } catch (PostInputException e){
+            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title", post.getPostTitle());
+        } catch (PostInputException e) {
             msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg(e.getMessage());
         } catch (Exception e) {
             msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg("系统错误!");
@@ -79,7 +79,7 @@ public class PostController {
     /**
      * 保存文章
      */
-    @RequestMapping(path = "/save",method = {RequestMethod.POST})
+    @RequestMapping(path = "/save", method = {RequestMethod.POST})
     @ResponseBody
     public Message savePost(
             Model model,
@@ -87,12 +87,12 @@ public class PostController {
             @RequestParam("markDownString") String markDownString,
             @RequestParam("htmlString") String htmlString,
             @RequestParam("tags") List<String> tags
-    ){
+    ) {
         Message msg = new Message();
         try {
             Post post = postSrv.pushPost(titleString, markDownString, htmlString, tags, PostStatus.DRAFT);
-            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title",post.getPostTitle());
-        } catch (PostInputException e){
+            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title", post.getPostTitle());
+        } catch (PostInputException e) {
             msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg(e.getMessage());
         } catch (Exception e) {
             msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg("系统错误!");
@@ -103,7 +103,7 @@ public class PostController {
     /**
      * 修改文章
      */
-    @RequestMapping(path = "/update",method = {RequestMethod.POST})
+    @RequestMapping(path = "/update", method = {RequestMethod.POST})
     @ResponseBody
     public Message updatePost(
             Model model,
@@ -112,12 +112,12 @@ public class PostController {
             @RequestParam("markDownString") String markDownString,
             @RequestParam("htmlString") String htmlString,
             @RequestParam("tags") List<String> tags
-    ){
+    ) {
         Message msg = new Message();
         try {
-            Post post = postSrv.editPost(postId,titleString, markDownString, htmlString, tags);
-            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title",post.getPostTitle());
-        } catch (PostInputException e){
+            Post post = postSrv.editPost(postId, titleString, markDownString, htmlString, tags);
+            msg.setCodeStatus(CodeStatus.STATUS_OK).addItem("title", post.getPostTitle());
+        } catch (PostInputException e) {
             msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg(e.getMessage());
         } catch (Exception e) {
             msg.setCodeStatus(CodeStatus.STATUS_ERROR).setMsg("系统错误!");
@@ -125,8 +125,8 @@ public class PostController {
         return msg;
     }
 
-    @RequestMapping(path = "/remove/{postTitle}",method = {RequestMethod.GET})
-    public String removePost(Model model, @PathVariable("postTitle") String postTitle){
+    @RequestMapping(path = "/remove/{postTitle}", method = {RequestMethod.GET})
+    public String removePost(Model model, @PathVariable("postTitle") String postTitle) {
         try {
             postSrv.removePage(postTitle);
         } catch (PostInputException e) {

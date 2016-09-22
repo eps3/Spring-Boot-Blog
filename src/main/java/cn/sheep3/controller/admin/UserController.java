@@ -1,27 +1,23 @@
 package cn.sheep3.controller.admin;
 
-import cn.sheep3.entity.Post;
 import cn.sheep3.entity.User;
-import cn.sheep3.exception.PostInputException;
 import cn.sheep3.exception.UserException;
 import cn.sheep3.service.PostService;
 import cn.sheep3.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by sheep3 on 16-9-14.
  */
 @Slf4j
-@Controller
+@Controller("admin_user_controller")
 @RequestMapping("/admin")
 public class UserController {
 
@@ -31,9 +27,9 @@ public class UserController {
     @Autowired
     private UserService userSrv;
 
-    @RequestMapping(path = {"", "/"})
+    @RequestMapping(path = {"", "/","/post/list"})
     public String index() {
-        return "/admin/list/0";
+        return "/admin/post/list/0";
     }
 
     @RequestMapping(path = "/me", method = {RequestMethod.GET})
