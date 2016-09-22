@@ -5,6 +5,7 @@ import cn.sheep3.repository.TagRepository;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,7 @@ public class TagServiceImpl implements TagService {
         return tagList;
     }
 
+    @Cacheable(value = TAG_CACHE_NAME,key = "'list_tag_cache_key_'")
     @Override
     public List<Tag> findAll() {
         return tagRepo.findAll();
@@ -60,7 +62,9 @@ public class TagServiceImpl implements TagService {
     }
 
     @CachePut(value = TAG_CACHE_NAME,key = "'tag_cache_key_'+#tag.name")
-    public void save(Tag tag){
+    @CacheEvict(value = TAG_CACHE_NAME,key = "'list_tag_cache_key_'")
+    public Tag save(Tag tag){
         tagRepo.save(tag);
+        return tag;
     }
 }

@@ -1,0 +1,23 @@
+#set($title = "标签列表")
+
+## header中的css占位
+#set($one = "/css/index.css")
+
+<!-- 头部导航    -->
+#parse("./header.html")
+
+
+<div class="am-g am-g-fixed blog-g-fixed">
+    <div class="am-u-md-8">
+        <h1>标签列表</h1>
+        <ul class="am-list">
+            #foreach($tag in $tags)
+                #if($tag.posts.size()>0)
+            <li><a href="/tag/$tag.name">$tag.name ( $tag.posts.size() )</a></li>
+                #end
+            #end
+        </ul>
+    </div>
+    #parse("./sidebar.html")
+</div>
+#include("./footer.html")

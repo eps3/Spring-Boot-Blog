@@ -16,5 +16,5 @@ public interface TagService {
 
     Tag findByName(String name);
 
-    void save(Tag tag);
+    Tag save(Tag tag);
 }
