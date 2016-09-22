@@ -29,6 +29,7 @@
 
 - Gradle 1.14
 
+> 本项目使用的lombok插件，如果您使用的是Idea import本项目，请安装lombok插件并设置setting->build->compiler->>annotation processors-->勾选Enable annotation processing
 
 
 ####数据库
