@@ -6,6 +6,8 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+    testOnBorrow: true
+    validationQuery: SELECT 1
   jpa:
     database: mysql
     show-sql: true
@@ -15,6 +17,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
+
 ##########################SQLITE####################
 ###################################################
 #spring:
