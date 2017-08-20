@@ -1,9 +1,9 @@
-##Spring Boot Blog
+## Spring Boot Blog
 
 
 
 
-####技术
+#### 技术
 
 - Spring Boot
 
@@ -32,13 +32,13 @@
 > 本项目使用的lombok插件，如果您使用的是Idea import本项目，请安装lombok插件并设置setting->build->compiler->>annotation processors-->勾选Enable annotation processing
 
 
-####数据库
+#### 数据库
 
 - 模仿了wordpress简略版
 
 
 
-####运行
+#### 运行
 
 ```
 
