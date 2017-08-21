@@ -21,13 +21,13 @@
 
 
 
-####环境
+#### 环境
 
 - jdk 1.8
 
 - IDEA
 
-- Gradle 1.14
+- Maven
 
 > 本项目使用的lombok插件，如果您使用的是Idea import本项目，请安装lombok插件并设置setting->build->compiler->>annotation processors-->勾选Enable annotation processing
 
@@ -42,25 +42,16 @@
 
 ```
 
-gradle runBoot
+maven clean package -Dmaven.test.skip=true
 
-//或者
-
-gradle clean bulid -x text
-
-java jar ./build/libs/xxxxx.jar
+java jar ./target/xxxxx.jar
 
 ```
 
 
 
-######修改密码
+###### 修改密码
 
 > 启动后回自动查找是否有用户，没有即创建一个账号密码均为admin的用户，后台可修改
 
 
-
-######Maven项目
-
-> Spring-Boot-Blog-Maven.zip 
->
