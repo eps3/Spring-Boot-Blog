@@ -30,7 +30,7 @@ public class Tag extends BaseEntity{
     @Column(name = "c_name",nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy="tags",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy="tags")
     @JsonIgnore
     private List<Post> posts = new ArrayList<>();
 

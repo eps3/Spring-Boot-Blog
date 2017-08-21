@@ -26,7 +26,7 @@ public class PostServiceImplTest {
 
     @Test
     public void removePage() throws Exception {
-        postSrv.removePage(3L);
+        postSrv.removePage("");
     }
 
     @Autowired
