@@ -1,14 +1,13 @@
 package cn.sheep3.service;
 
-import cn.sheep3.BlogApplication;
 import cn.sheep3.entity.Post;
 import cn.sheep3.model.status.PostStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,8 +15,8 @@ import java.util.List;
 /**
  * Created by sheep3 on 16-9-16.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = BlogApplication.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class PostServiceImplTest {
     @Test
     public void getHotPost() throws Exception {

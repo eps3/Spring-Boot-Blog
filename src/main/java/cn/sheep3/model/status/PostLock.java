@@ -10,15 +10,12 @@ public enum PostLock {
     LOCK(true),
     UN_LOCK(false);
 
-    @Getter@Setter
+    @Getter
+    @Setter
     private boolean isLock;
 
     PostLock(boolean isLock) {
         this.isLock = isLock;
-    }
-
-    public boolean isLock(){
-        return this.isLock;
     }
 
 }

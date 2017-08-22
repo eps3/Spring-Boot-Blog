@@ -4,7 +4,7 @@ import cn.sheep3.entity.User;
 import cn.sheep3.exception.UserException;
 import cn.sheep3.repository.UserRepository;
 import cn.sheep3.util.PassWordUtil;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;

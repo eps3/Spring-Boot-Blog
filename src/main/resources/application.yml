@@ -30,13 +30,8 @@ spring:
 #      hibernate:
 #        dialect: com.enigmabridge.hibernate.dialect.SQLiteDialect
 ###################################################
-  velocity:
-    suffix: .html
-    view-names: /index,/page,/footer,/header,/page,/sidebar,/list,/admin/edit,/admin/footer,/admin/header,/admin/list,/admin/login,/admin/sidebar,/error/403,/admin/person-setting
-    prefix: /templates
-    #resource-loader-path: classpath:/templates/
-    cache: true
-    check-template-location: false
-
+  thymeleaf:
+    cache: false
+    
 server:
   port: 8080
