@@ -2,7 +2,7 @@
 spring:
   #SQL_CONN_SETTING
   datasource:
-    url: jdbc:mysql://localhost:3306/blog
+    url: jdbc:mysql://localhost:3306/blog?useSSL=false
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver

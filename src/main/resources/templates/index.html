@@ -1,46 +1,56 @@
-#set($title = "羊三的blog站")
-
-## header中的css占位
-#set($one = "/css/index.css")
-
 <!-- 头部导航    -->
-#parse("./header.html")
+#parse("./blog/header.html")
+<!-- Main Content -->
+<div class="container custom-haojen-container">
+    <!-- Post Container -->
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
+            <!-- Main Content -->
+            #foreach($post in $page.content)
+            <div class="post-preview poetry">
+                <a href="/post/$post.postTitle">
+                    <h2 class="post-title">
+                        $!post.postTitle
+                    </h2>
+                    <p class="post-meta">
+                        <i class="fa fa-calendar" aria-hidden="true"></i> $!post.createdDate.toString("yyyy/MM/dd HH:mm:ss EE")
+                    </p>
+                    测试标题自标题
+                    <h3 class="post-subtitle">
+                        子子标题
+                    </h3>
+                    <div class="post-content-preview">
+                        <p>
+                            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+                            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+                        </p>
+                    </div>
+                </a>
 
+            </div>
+            <hr>
+            #end
+            <!-- 翻页 pager -->
 
-<div class="am-g am-g-fixed blog-g-fixed">
-  <div class="am-u-md-8">
+            <ul class="pager">
+                #if(!$page.first)
+                #set($index=$page.number - 1)
+                <li class="previous">
+                    <a href="/page/$index">&larr; Newer Posts</a>
+                </li>
+                #end
 
-    #foreach($post in $page.content)
-    <article class="blog-main">
-      <h3 class="am-article-title blog-title">
-        <a href="/post/$!post.postTitle">$!post.postTitle</a>
-      </h3>
-      <h4 class="am-article-meta blog-meta">by <a href="">$!post.user.userLogin</a> posted on $!post.createdDate.toString("yyyy/MM/dd HH:mm:ss EE") under <a href="#">上海</a></h4>
-
-      <div class="am-g blog-content">
-        <div class="am-u-lg-12">
-          $!post.postShow
+                #if(!$page.last)
+                #set($index=$page.number + 1)
+                <li class="next">
+                    <a href="/page/$index">Older Posts &rarr;</a>
+                </li>
+                #end
+            </ul>
         </div>
-      </div>
-    </article>
-    #end
-
-    <hr class="am-article-divider blog-hr">
-
-    <hr class="am-article-divider blog-hr">
-    <ul class="am-pagination blog-pagination">
-      #if(!$page.first)
-      #set($index=$page.number - 1)
-      <li class="am-pagination-prev"><a href="/page/$index">&laquo; 上一页</a></li>
-      #end
-      #if(!$page.last)
-      #set($index=$page.number + 1)
-      <li class="am-pagination-next"><a href="/page/$index">下一页 &raquo;</a></li>
-      #end
-    </ul>
-  </div>
-
-  #parse("./sidebar.html")
-
+        <!-- Sidebar Container -->
+        #parse("./blog/sidebar.html")
+    </div>
 </div>
-#include("./footer.html")
+
+#include("./blog/footer.html")

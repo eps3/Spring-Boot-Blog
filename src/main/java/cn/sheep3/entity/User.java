@@ -1,10 +1,7 @@
 package cn.sheep3.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +11,7 @@ import javax.persistence.Table;
 /**
  * Created by sheep3 on 16-9-14.
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "t_users")
